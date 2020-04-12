@@ -27,7 +27,7 @@ SECRET_KEY = 'qd2af=or&=967z(1k7u$58yx-wayv4-hp^%osb6=y@v#$gw5&s'
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
-            'itcube-marathone.herokuapp.com']
+            'itcube-marathon.herokuapp.com']
 
 
 # Application definition
