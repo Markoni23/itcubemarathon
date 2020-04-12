@@ -21,7 +21,7 @@
 
     <div id="collapseCourse{{course.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#courseExpanded">
       <div class="card-body inline">
-        <p class="card-text">{{course.info}}</p>
+        <p class="card-text">{{course.short_info}}</p>
         <a href="{% url 'course' course.pk%}" class="btn btn-primary">Перейти к направлению</a>
       </div>
     </div>

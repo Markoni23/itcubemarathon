@@ -8,8 +8,23 @@
         <p>{{course.info}}</p>
     </div>
 
+
     <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
     </div>
+
+
+    {% for lesson in course.lesson_set.all %}
+        <div class="card">
+            <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link" type="button">
+                    <a class="nav-link" href="{% url 'lesson' lesson.pk %}">{{lesson.title}}</a>
+                </button>
+            </h2>
+            </div>
+
+        </div>
+    {% endfor %}
 
 {% endblock%}

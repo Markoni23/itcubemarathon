@@ -9,7 +9,8 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=255)
-    info = models.TextField(max_length=1000)
+    short_info = models.TextField(max_length=500, default='Краткая информация о курсе')
+    info = models.TextField()
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, blank=True, null=True)
 
 class Lesson(models.Model):
