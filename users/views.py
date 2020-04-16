@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, CreateTeacher
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -20,3 +20,18 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
+@login_required
+def became_teacher(request):
+    if request.method == 'POST':
+        form = CreateTeacher(request.POST)
+        if form.is_valid():
+            new = form.save(request)
+            if new:
+                messages.success(request,f"За Вами успешно закреплены права педагога")
+            else:
+                messages.success(request,f"Вы уже педагог!!!")
+            return redirect('profile')
+    else:
+        form = CreateTeacher()
+    return render(request, 'users/became_teacher.html', context={'form': form})
