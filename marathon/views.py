@@ -11,6 +11,8 @@ def index(request):
                                             'courses': Course.objects.all(),
                                         })
 
+
+
 class CourseView(DetailView):
     model = Course
     

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
+    'crispy_forms',
     'marathon',
+    
 ]
 
 MIDDLEWARE = [
@@ -130,6 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGIN_URL = 'login'
+
 STATIC_URL = '/static/'
 
 #location where django collect all static files
@@ -149,4 +158,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-
+try:
+    from .local_settings import *
+except ImportError:
+    pass
