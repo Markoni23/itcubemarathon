@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block content%}
+    <div class="d-flex justify-content-center">
+        <h1>{{course.title}}</h1>
+    </div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Логин</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      {% for lesson in course.lesson_set.all%}
+        <th scope="col">{{lesson.title}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {%for student in course.student_set.all%}
+    <tr>
+      <th contenteditable='true' scope="row">{{forloop.counter}}</th>
+      <td>{{student.user.username}}</td>
+      <td>{{student.user.firstname}}</td>
+      <td>{{student.user.lastname}}</td>
+      {% for grade in course.lesson_set.all%}
+        <th scope="col">{{lesson.title}}</th>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock%}

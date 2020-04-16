@@ -1,0 +1,5 @@
+{% autoescape off %}
+Добрый день {{ user.username }},
+пожалуйста, нажмите на ссылку что-бы подтвердить регистрацию в IT-марафоне
+http://{{ domain }}/activate/{{uid}}/{{token}}
+{% endautoescape %}

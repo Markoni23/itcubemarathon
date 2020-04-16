@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
+
+    <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
     <div class="d-flex justify-content-center">
         <h1>День Х:{{lesson.title}}</h1>
     </div>
@@ -8,8 +10,8 @@
         <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
     </div>
     <div class="d-flex justify-content-center">
-        <p>{{lesson.info}}<p>
+        {{lesson.info|safe}}
     </div>
-
+    <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
 
 {% endblock%}

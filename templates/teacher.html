@@ -1,0 +1,23 @@
+<h3>Мои курсы</h3>
+<a href="{% url 'course-new'%}" class="btn btn-primary">Создать курс</a>
+
+<div class="accordion" id="courseExpanded">
+{% for course in user.teacher.course_set.all%}
+    <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCourse{{course.pk}}" aria-expanded="true" aria-controls="collapseOne">
+          {{course.title}}
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseCourse{{course.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#courseExpanded">
+      <div class="card-body inline">
+        <p class="card-text">{{course.short_info}}</p>
+        <a href="{% url 'course' course.pk%}" class="btn btn-primary">Перейти к направлению</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>

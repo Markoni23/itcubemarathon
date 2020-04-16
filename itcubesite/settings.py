@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
 
 INSTALLED_APPS = [
     'users',
+    'six',
+    'django_summernote',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'itcubesite.urls'
@@ -157,6 +160,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+SECRET_KEY_FOR_TEACHER = os.environ.get('SECRET_KEY_FOR_TEACHER')
+
+SUMMERNOTE_THEME = 'bs4'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 try:
     from .local_settings import *

@@ -2,21 +2,42 @@ from django import forms
 from django.conf import settings 
 from marathon.models import Teacher
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import password_validation
+from django.forms.widgets import PasswordInput, TextInput
 from django.forms import ValidationError
+
+
+class CustomAuthForm(AuthenticationForm):
+    username = forms.CharField(label='Имя пользователя/email')
+    password = forms.CharField(label='Пароль',widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
+    agree = forms.BooleanField(label='Согласие на обработку <a href="https://google.com">персональных данных</a>')
+    password1 = forms.CharField(
+        label="Пароль",
+        strip=False,
+        widget=forms.PasswordInput,
+    )
 
+    password2 = forms.CharField(
+        label="Подтверждение пароля",
+        strip=False,
+        widget=forms.PasswordInput,
+    )
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'agree']
+        labels = {
+                "username": "Имя пользователя",
+            }
 
 
 class CreateTeacher(forms.Form):
     secret_key = forms.CharField(label='Очень секретный пароль', max_length=100)
-
+    
     def clean_secret_key(self):
         secret_key = self.cleaned_data['secret_key']
         if secret_key != settings.SECRET_KEY_FOR_TEACHER:

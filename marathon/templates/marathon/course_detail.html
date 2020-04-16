@@ -12,19 +12,29 @@
     <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
     </div>
+    
+    {% if user.teacher %}
+         <a href="{% url 'course-statistic' course.pk%}" class="btn btn-primary">Посмтреть статистику курса</a>
+         <a href="{% url 'lesson-new' course.pk%}" class="btn btn-second">Добавить урок</a>
+    {% endif %}
 
+    {% if user.student and course not in user.student.courses.all %}
+        <a href="{% url 'register-to-course' course.pk%}" class="btn btn-primary">Записаться на курс</a>
+    {% endif %}
 
-    {% for lesson in course.lesson_set.all %}
-        <div class="card">
-            <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-                <button class="btn btn-link" type="button">
-                    <a class="nav-link" href="{% url 'lesson' lesson.pk %}">{{lesson.title}}</a>
-                </button>
-            </h2>
+    {% if course in user.student.courses.all or not user.student%}
+        {% for lesson in course.lesson_set.all %}
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button">
+                        <a class="nav-link" href="{% url 'lesson' lesson.pk %}">{{lesson.title}}</a>
+                    </button>
+                </h2>
+                </div>
+
             </div>
-
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 
 {% endblock%}

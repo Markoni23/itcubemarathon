@@ -3,5 +3,11 @@
    <h1>{{ user.username }}</h1>
    {% if user.teacher %}
     <h2>Педагог</h2>
+    {% include "teacher.html" %}
+   {% endif %}
+
+   {% if user.student %}
+    <h2>Ученик</h2>
+    {% include "student.html" %}
    {% endif %}
 {% endblock content %}
