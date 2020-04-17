@@ -18,7 +18,8 @@
 
     {% if user.teacher %}
          <a href="{% url 'course-statistic' course.pk%}" class="btn btn-primary">Посмтреть статистику курса</a>
-         <a href="{% url 'lesson-new' course.pk%}" class="btn btn-second">Добавить урок</a>
+         <a href="{% url 'course-update' course.pk%}" class="btn btn-danger">Редактировать</a>
+         <a href="{% url 'lesson-new' course.pk%}" class="btn btn-secondary">Добавить урок</a>
     {% endif %}
 
     {% if user.student and course not in user.student.courses.all %}

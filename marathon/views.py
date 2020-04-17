@@ -113,3 +113,19 @@ class LessonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return teacher == course.teacher
 
 
+class LessonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Lesson
+    form_class = LessonForm
+
+    def form_valid(self, form):
+        course = Course.objects.get(pk=self.kwargs.get('pk'))
+        form.instance.course = course
+        return super().form_valid(form)
+
+    def test_func(self):
+        try:
+            teacher = self.request.user.teacher
+        except:
+            return False
+        course = Course.objects.get(pk=self.kwargs.get('pk'))
+        return teacher == course.teacher

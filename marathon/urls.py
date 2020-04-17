@@ -8,6 +8,7 @@ from .views import (
     CourseUpdateView,
     LessonView,
     LessonCreateView,
+    LessonUpdateView,
 )
 
 urlpatterns = [
@@ -19,5 +20,6 @@ urlpatterns = [
     path('course/<int:pk>/update/', CourseUpdateView.as_view(), name='course-update'),
     path('course/new/', CourseCreateView.as_view(), name='course-new'),
     path('lesson/<int:pk>', LessonView.as_view(), name='lesson'),
+    path('lesson/<int:pk>/update', LessonUpdateView.as_view(), name='lesson-update'),
     path('course/<int:pk>/new_lesson', LessonCreateView.as_view(), name='lesson-new')
 ]

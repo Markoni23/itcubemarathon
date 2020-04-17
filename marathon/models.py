@@ -15,7 +15,7 @@ class Course(models.Model):
     title = models.CharField(max_length=255)
     short_info = models.TextField(max_length=500, default='Краткая информация о курсе')
     info = models.TextField()
-    you_tube_url = models.URLField(default='', blank=True, null=True)
+    you_tube_url = models.CharField(max_length=50, default='', blank=True, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, blank=True, null=True)
 
     def get_absolute_url(self):
@@ -25,7 +25,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=255)
     #info = HTMLField()
     info = models.TextField(max_length=1000)
-    video = models.URLField(blank=True, null=True)
+    video = models.CharField(max_length=50, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def get_absolute_url(self):

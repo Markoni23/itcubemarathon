@@ -12,12 +12,13 @@
     </div>
     {% endif %}
 
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
-    </div>
     <div class="d-flex justify-content-center">
         {{lesson.info|safe}}
     </div>
+
+    {% if user.teacher and lesson.course.teacher == user.teacher%}
+        <a href="{% url 'lesson-update' lesson.pk%}" class="btn btn-danger">Редактировать</a>
+    {% endif %}
     <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
 
 {% endblock%}
