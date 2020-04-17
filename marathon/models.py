@@ -24,7 +24,7 @@ class Course(models.Model):
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
     #info = HTMLField()
-    info = models.TextField(max_length=1000)
+    info = models.TextField()
     video = models.CharField(max_length=50, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
