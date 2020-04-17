@@ -38,7 +38,7 @@ def register(request):
             email.send()
             username = form.cleaned_data.get('username')
             messages.success(request,f"Профиль '{username}' почти создан , теперь осталось подтвердить регистрацию")
-            return redirect('login')
+            return redirect('home')
     else:
         form = UserRegistrationForm()
     return render(request, 'users/registration.html', context={'form': form})

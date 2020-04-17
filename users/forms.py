@@ -16,6 +16,8 @@ class CustomAuthForm(AuthenticationForm):
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
     agree = forms.BooleanField(label='Согласие на обработку <a href="https://google.com">персональных данных</a>')
+    first_name = forms.CharField(max_length=25, label = 'Имя')
+    last_name = forms.CharField(max_length=100, label = 'Фамилия')
     password1 = forms.CharField(
         label="Пароль",
         strip=False,
@@ -29,7 +31,7 @@ class UserRegistrationForm(UserCreationForm):
     )
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'agree']
+        fields = ['username', 'email','first_name', 'last_name', 'password1', 'password2', 'agree']
         labels = {
                 "username": "Имя пользователя",
             }

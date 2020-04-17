@@ -8,7 +8,7 @@ from django.views.generic import (
     UpdateView,
 )
 from .models import *
-from .forms import LessonForm
+from .forms import LessonForm, CourseForm
 
 # Create your views here.
 
@@ -58,7 +58,7 @@ class CourseView(DetailView):
 
 class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
-    fields = ['title', 'short_info', 'info', 'you_tube_url']
+    form_class = CourseForm
 
     def form_valid(self, form):
         form.instance.teacher = self.request.user.teacher
@@ -74,7 +74,7 @@ class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Course
-    fields = ['title', 'short_info', 'info', 'you_tube_url']
+    form_class = CourseForm
 
     def form_valid(self, form):
         form.instance.teacher = self.request.user.teacher

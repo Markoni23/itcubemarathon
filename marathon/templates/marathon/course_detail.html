@@ -4,15 +4,18 @@
         <h1>{{course.title}}</h1>
     </div>
 
-    <div class="d-flex justify-content-center">
-        <p>{{course.info}}</p>
-    </div>
 
 
+    {% if course.you_tube_url %}
     <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
+        <iframe class="embed-responsive-item" src="https://youtube.com/embed/{{course.you_tube_url}}" allowfullscreen></iframe>
     </div>
-    
+    {% endif %}
+
+    <div class="d-flex flex-column justify-content-center mt-3">
+        <p>{{course.info|safe}}</p>
+    </div>
+
     {% if user.teacher %}
          <a href="{% url 'course-statistic' course.pk%}" class="btn btn-primary">Посмтреть статистику курса</a>
          <a href="{% url 'lesson-new' course.pk%}" class="btn btn-second">Добавить урок</a>
