@@ -3,7 +3,7 @@
 
     <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
     <div class="d-flex justify-content-center">
-        <h1>День Х:{{lesson.title}}</h1>
+        <h1>{{lesson.title}}</h1>
     </div>
 
     {% if lesson.video %}
@@ -12,7 +12,7 @@
     </div>
     {% endif %}
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column justify-content-center mt-3">
         {{lesson.info|safe}}
     </div>
 
