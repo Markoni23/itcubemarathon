@@ -99,6 +99,11 @@ class LessonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Lesson
     form_class = LessonForm
 
+    def form_valid(self, form):
+        course = Course.objects.get(pk=self.kwargs.get('pk'))
+        form.instance.course = course
+        return super().form_valid(form)
+
     def test_func(self):
         try:
             teacher = self.request.user.teacher
@@ -113,7 +118,7 @@ class LessonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = LessonForm
 
     def form_valid(self, form):
-        course = Course.objects.get(pk=self.kwargs.get('pk'))
+        course = self.get_object().course
         form.instance.course = course
         return super().form_valid(form)
 
