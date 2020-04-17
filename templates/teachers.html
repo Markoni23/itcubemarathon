@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+   <h1> Наши педагоги</h1>
+
+    {% for teacher in teachers%}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fru%2Ffree-png-xpqfm&psig=AOvVaw0u6rqA-Qhlo97HUlc4ntUB&ust=1587196282343000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJCIm4v97ugCFQAAAAAdAAAAABAD" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{teacher.user.last_name}} {{teacher.user.first_name}}</h5>
+                    <p class="card-text">Какой-то текст про педагога и все такое.</p>
+                </div>
+                </div>
+            </div>
+            </div>
+    {% endfor %}
+{% endblock content %}

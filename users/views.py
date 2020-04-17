@@ -56,7 +56,7 @@ def activate(request, uidb64, token):
         messages.success(request,f"Почта успешно подтверждена")
         return redirect('home')
     else:
-        messages.alert(request,f"Почта успешно подтверждена")
+        messages.success(request,f"Почта успешно подтверждена")
         return redirect('home')
 
 

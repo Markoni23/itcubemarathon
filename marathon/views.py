@@ -18,6 +18,10 @@ def index(request):
                                             'courses': Course.objects.all(),
                                         })
 
+
+def teachers(request):
+    return render(request, 'teachers.html', context = {'teachers': Teacher.objects.all()})
+
 def check_student(user):
     try:
         if user.student:

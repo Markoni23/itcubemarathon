@@ -11,15 +11,15 @@
 <div class="accordion" id="courseExpanded">
   {% for course in courses %}
   <div class="card">
-    <div class="card-header" id="headingOne">
+    <div class="card-header" id="heading{{course.pk}}">
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCourse{{course.pk}}" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCourse{{course.pk}}" aria-expanded="false" aria-controls="collapseOne">
           {{course.title}}
         </button>
       </h2>
     </div>
 
-    <div id="collapseCourse{{course.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#courseExpanded">
+    <div id="collapseCourse{{course.pk}}" class="collapse" aria-labelledby="heading{{course.pk}}" data-parent="#courseExpanded">
       <div class="card-body inline">
         <p class="card-text">{{course.short_info}}</p>
         <a href="{% url 'course' course.pk%}" class="btn btn-primary">Перейти к направлению</a>
