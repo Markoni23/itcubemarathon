@@ -127,5 +127,5 @@ class LessonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             teacher = self.request.user.teacher
         except:
             return False
-        course = Course.objects.get(pk=self.kwargs.get('pk'))
+        course = self.get_object().course
         return teacher == course.teacher
