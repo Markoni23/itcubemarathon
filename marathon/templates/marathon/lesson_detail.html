@@ -6,6 +6,12 @@
         <h1>День Х:{{lesson.title}}</h1>
     </div>
 
+    {% if lesson.video %}
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://youtube.com/embed/{{lesson.video}}" allowfullscreen></iframe>
+    </div>
+    {% endif %}
+
     <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="https://youtube.com/embed/mDOBX_c0sCg" allowfullscreen></iframe>
     </div>
