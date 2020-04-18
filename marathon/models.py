@@ -9,7 +9,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     info = models.TextField(max_length=255)
+    avatar = models.ImageField(null=True, blank=True)
 
+    def __str__(self):
+        return f"Учитель: {self.user.last_name} {self.user.first_name} "
 
 class Course(models.Model):
     title = models.CharField(max_length=255)
@@ -18,8 +21,12 @@ class Course(models.Model):
     you_tube_url = models.CharField(max_length=50, default='', blank=True, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, blank=True, null=True)
 
+    def __str__(self):
+        return f'Направление: {self.title}'
+
     def get_absolute_url(self):
         return reverse('course', kwargs={'pk':self.pk})
+
 
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
@@ -31,6 +38,9 @@ class Lesson(models.Model):
     def get_absolute_url(self):
         return reverse('lesson', kwargs={'pk':self.pk})
 
+    def __str__(self):
+        return f"Урок:{self.title}, курс: {self.course.title}"
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     info = models.TextField(max_length=255)
@@ -41,6 +51,9 @@ class Student(models.Model):
         for lesson in Course.objects.get(pk=course_pk).lesson_set.all():
             grades[lesson.id] = LessonMarks.objects.get_or_create(student=self, lesson=lesson)[0].value
         return grades
+
+    def __str__(self):
+        return f'Ученик: {self.user.last_name} {self.user.first_name}'
 
 class LessonMarks(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
