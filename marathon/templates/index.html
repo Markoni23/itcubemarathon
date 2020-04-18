@@ -21,14 +21,31 @@
  новое задание. Количество направлений для выбора не ограничено. 
  Выбирай направление и прокачивай свои знания под руководством опытных наставников. 
  Выполняй задания каждый день и повышай свой рейтинг.</p>
-  {% if not user.authenticated%}
+  {% if not request.user.is_authenticated %}
   <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  <p>Для участия в марафоне необходимо зарегестрироваться</p>
+  <a class="btn btn-primary btn-lg" style="background-color: #5b7ab9;" href="{% url 'register' %}" role="button">Регистрация</a>
+  {% endif %}
 </div>
 
+{% for course in courses %}
+  <div class="container border my-4">
+    <h1 class="display-4  text-center">{{course.title}}</h1>
+    <p class="lead">{{course.short_info}}</p>
+    <div class="row justify-content-center">
+    <div class="col-3">
+      <a class="btn btn-primary w-100 btn-lg mb-2" style="background-color: #5b7ab9;" href="{% url 'register' %}" role="button">Подробнее</a>
+    </div>
+    </div>
+  </div>
+
+{% endfor %}
 
 
+
+
+
+<!--
 <div class="accordion" id="courseExpanded">
   {% for course in courses %}
   <div class="card">
@@ -51,6 +68,6 @@
   {% endfor %}
 </div>
 
-
+-->
 
 {% endblock %}
