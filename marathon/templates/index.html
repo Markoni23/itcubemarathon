@@ -28,19 +28,21 @@
   {% endif %}
 </div>
 
+<div class="row row-cols-1 row-cols-md-3">
 {% for course in courses %}
-  <div class="container border my-4">
-    <h1 class="display-4  text-center">{{course.title}}</h1>
-    <p class="lead">{{course.short_info}}</p>
-    <div class="row justify-content-center">
-    <div class="col-3">
-      <a class="btn btn-primary w-100 btn-lg mb-2" style="background-color: #5b7ab9;" href="{% url 'register' %}" role="button">Подробнее</a>
+<div class="col my-3">
+  <div class="card h-100">
+    <div class="card-body">
+      <h3 class="card-title text-center">{{course.title}}</h3>
+      <p class="card-text">{{course.short_info}}</p>
     </div>
-    </div>
+    <div class="card-footer text-center">
+      <a class="btn btn-primary  btn-lg" style="background-color: #5b7ab9;" href="{% url 'course' course.pk%}" role="button">Подробнее</a>
+    </div>  
   </div>
-
+</div>
 {% endfor %}
-
+</div>
 
 
 
