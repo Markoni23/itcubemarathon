@@ -2,22 +2,22 @@
 {% block index %}
 {% load static %}
 
-    <div class="img__container mt-1 mb-0">
+    <div class="img__container mt-0 mb-0">
         <img src="{% static 'images/image.png' %}" class="image" alt="Описание изображения...">
-        <div class="img__description">
+       <!-- <div class="img__description">
             <div class="img__header">Яркие грани IT-технологий</div>
           <p class="lead"> Новые знания по различным направлениям
                       <br> Навыки проектной деятельности и командной работы
                       <br>Новые дисциплины</p>
+                        -->
           {% if not request.user.is_authenticated %}
-            <hr class="my-4">
-            <p class="fs"> Для участия в марафоне необходимо зарегестрироваться</p>
-            <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Регистрация</a>
-            {% endif %}
-        </div>
+          <div class="img__description">
+            <a class="btn rounded-pill btn-primary btn-lg my_btn" style="padding: 1rem 5rem;" href="{% url 'register' %}" role="button">Регистрация</a>
+          </div>
+          {% endif %}
     </div>
 
-    <div class="jumbotron text-center px-5">
+    <div class="jumbotron text-center" style="padding: 8rem 10rem;">
             <h1 class="display-4" style="font-weight: bold;">О марафоне</h1>
             <p class="lead mx-5">Старт марафона 20 апреля. 
                 Марафон проходит в течение нескольких дней: новый день - новое задание.
@@ -44,7 +44,7 @@
                 <p class="card-text">{{course.short_info}}</p>
               </div>
               <div class="card-footer text-center">
-                <a class="btn btn-primary  btn-lg" style="background-color: #5b7ab9;" href="{% url 'course' course.pk%}" role="button">Подробнее</a>
+                <a class="btn btn-primary  btn-lg my_btn"  href="{% url 'course' course.pk%}" role="button">Подробнее</a>
               </div>  
             </div>
           </div>
