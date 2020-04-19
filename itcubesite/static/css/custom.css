@@ -30,7 +30,7 @@ body
 .img__description {
     position:absolute;
     width: 80%;
-    top:70%;
+    top:80%;
     left:44%;
     color: white;
     opacity: 0.9;
@@ -58,5 +58,5 @@ h1,h2,h3{
 
 .my_btn{
   background-color: #2731AE;
-  
+  border-color: #007bff;
 }

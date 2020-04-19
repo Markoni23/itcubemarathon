@@ -17,7 +17,7 @@
           {% endif %}
     </div>
 
-    <div class="jumbotron text-center" style="padding: 8rem 10rem;">
+    <div class="jumbotron text-center" style="background-color:white; padding: 8rem 10rem;">
             <h1 class="display-4" style="font-weight: bold;">О марафоне</h1>
             <p class="lead mx-5">Старт марафона 20 апреля. 
                 Марафон проходит в течение нескольких дней: новый день - новое задание.
@@ -43,9 +43,9 @@
                 <h3 class="card-title text-center" style="font-family: 'Rubik', sans-serif;">{{course.title}}</h3>
                 <p class="card-text">{{course.short_info}}</p>
               </div>
-              <div class="card-footer text-center">
-                <a class="btn btn-primary  btn-lg my_btn"  href="{% url 'course' course.pk%}" role="button">Подробнее</a>
-              </div>  
+              <!-- <div class="card-footer text-center"> -->
+                <a class="btn rounded-pill btn-primary  btn-lg my_btn w-50 mb-3 mx-auto"  href="{% url 'course' course.pk%}" role="button">Подробнее</a>
+              <!-- </div>  -->
             </div>
           </div>
           {% endfor %}
