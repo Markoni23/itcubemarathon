@@ -8,9 +8,10 @@
     <!-- Bootstrap CSS -->
     {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
    
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">   
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">  
     {% block extra %}
     {% endblock %}
     
@@ -58,7 +59,7 @@
 {% block index %}
     
  {% endblock index %}
-
+ 
  <div class='row mt-5 mb-5'>
         <div class='container justify-content-center'>
             {%if messages%}
@@ -70,7 +71,13 @@
             {%endif%}
     {% block content %}
     {% endblock content %}
-      
+        </div>
+    </div>
+    <footer class="footer">
+         <div class="img__container mt-0 mb-0">
+             <img src="{% static 'images/Resurs_9.png' %}" class="image" alt="Описание изображения...">
+        </div>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

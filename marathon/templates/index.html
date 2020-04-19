@@ -17,14 +17,17 @@
           {% endif %}
     </div>
 
-    <div class="jumbotron text-center" style="background-color:white; padding: 8rem 10rem;">
+    <div class="jumbotron text-center" style="background-color:white;padding: 8rem 18rem;position: relative;">
             <h1 class="display-4" style="font-weight: bold;">О марафоне</h1>
-            <p class="lead mx-5">Старт марафона 20 апреля. 
+            <img src="{% static 'images/Resurs_2.png' %}" style="position: absolute;width: 20%;top: 9vh;left: -3%;" class="image" alt="Описание изображения...">
+            <p class="lead my-2 mx-5" style="text-weight:bold">Старт марафона 20 апреля. 
                 Марафон проходит в течение нескольких дней: новый день - новое задание.
-                 Количество направлений для выбора не ограничено. 
+                 Количество направлений для выбора не ограничено. </p>
+            <img src="{% static 'images/Resurs_1.png' %}" style="width: 10%;" class="image" alt="Описание изображения...">
+            <p class="lead my-2 mx-5" style="text-weight:bold">
                  Выбирай направление и прокачивай свои знания под руководством опытных наставников. 
                  Выполняй задания каждый день и повышай свой рейтинг.</p>
-            
+            <img src="{% static 'images/Resurs_3.png' %}" style="position: absolute;width: 22%;top: 48%;right: 2%;" class="image" alt="Описание изображения...">
     </div>
 
 
@@ -33,9 +36,9 @@
 {% endblock index%}
 {% block content %}
 
+ <h1 class="display-4 text-center mb-5" style="font-weight: bold;">Наши направления</h1>
 
-
-          <div class="row row-cols-1 justify-content-md-center row-cols-md-3">
+          <div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
           {% for course in courses %}
           <div class="col my-3">
             <div class="card h-100">
@@ -51,31 +54,53 @@
           {% endfor %}
           </div>
 
+<h1 class="display-4 text-center mb-5" style="font-weight: bold;">Педагоги</h1>
+
+<div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
+  {% for teacher in teachers %}
+  <div class="col my-3">
+    <div class="card border-0 text-center">
+
+      <img class="card-img-top rounded-circle w-75" style="margin:auto;" src="{% if teacher.avatar %}{{teacher.avatar.url}}{% endif %}" alt="Card image cap">
+      <div class="card-body">
+        <h1 class="card-title mb-3">{{teacher.user.last_name}} {{teacher.user.first_name}}</h1>
+        <p class="card-text" style="font-size:1.5em;">{{teacher.course_set.first}}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+ <div class="jumbotron text-center" style="background-color:white;padding: 8rem 18rem;position: relative;">
+<h1 class="display-4 mb-5" style="font-weight: bold;">Об IT-Cube</h1>
+<p class="lead" style="text-weight:bold;">
+Центр цифрового образования детей «IT-cube» — инновационная современная площадка дополнительного 
+образования и интеллектуального развития детей и подростков в сфере современных информационных и 
+телекоммуникационных технологий. Дети в возрасте от 7 до 17 лет бесплатно обучаются основам программирования, 
+интернет – технологиям, языкам программирования, разрабатывают приложения для мобильных устройств, конструируют 
+роботов и управляют ими. </p>
+<img src="{% static 'images/Resurs_10.png' %}" style="position: absolute;width: 37%;top: 22%;right: -21%;" class="image" alt="Описание изображения...">
+  <img src="{% static 'images/Resurs_6.png' %}" style="position: absolute;width: 29%;top: 6vh;left: -8%;" class="image" alt="Описание изображения...">
+</div>
+
+<div class="jumbotron text-center" style="background-color:white;position: relative;">
+<h1 class="display-4 mb-5" style="font-weight: bold;">Контакты</h1>
+<div class="row justify-content-md-center">
+  <div class="col-6 d-flex flex-column my-4"> 
+ <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/phone.png"/>+7(991)42-00-59</div>
+ <div class="my-2"> <img src="https://img.icons8.com/ios-filled/26/000000/important-mail.png"/>it_cube@mail.ru</div>
+</div>
+  <div class="col-6 d-flex flex-column my-4"> 
+  <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/instagram.png"/>@vk.com/it_cube_krd</div>
+   <div class="my-2"><img src="https://img.icons8.com/metro/26/000000/vk-com--v1.png"/> vk.com/it_cube_krd</div>
+   </div>
 
 
+  <div class="col-6"> <img src="https://img.icons8.com/ios-filled/26/000000/marker.png"/>г. Краснодар, ул. Красноармейская, 54</div>
+</div>
+<img src="{% static 'images/Resurs_7.png' %}" style="position: absolute;width: 26%;top: 12vh;right: -12%;z-index: 1;" class="image" alt="Описание изображения...">
+</div>
 
-          <!--
-          <div class="accordion" id="courseExpanded">
-            {% for course in courses %}
-            <div class="card">
-              <div class="card-header" id="heading{{course.pk}}">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCourse{{course.pk}}" aria-expanded="false" aria-controls="collapseOne">
-                    {{course.title}}
-                  </button>
-                </h2>
-              </div>
 
-              <div id="collapseCourse{{course.pk}}" class="collapse" aria-labelledby="heading{{course.pk}}" data-parent="#courseExpanded">
-                <div class="card-body inline">
-                  <p class="card-text">{{course.short_info}}</p>
-                  <a href="{% url 'course' course.pk%}" class="btn btn-primary">Перейти к направлению</a>
-                </div>
-              </div>
-            </div>
-
-            {% endfor %}
-          </div>
-
-          -->
 {% endblock content %}

@@ -27,6 +27,9 @@ class Course(models.Model):
     def get_absolute_url(self):
         return reverse('course', kwargs={'pk':self.pk})
 
+    def get_comments(self):
+        return self.comments.all()
+
 
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
@@ -63,3 +66,16 @@ class LessonMarks(models.Model):
             MaxValueValidator(10),
             MinValueValidator(0)
         ])
+
+class CourseComment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField(max_length=300)
+    created_on = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return f"Комм. к {self.course.title} от {self.author.username}"
+    

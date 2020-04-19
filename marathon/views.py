@@ -1,13 +1,22 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.core import serializers
 from django.views.generic import (
     DetailView, 
     CreateView,
     UpdateView,
 )
-from .models import *
+from .models import (
+    Teacher,
+    Student,
+    Course,
+    Lesson,
+    CourseComment,
+    LessonMarks
+)
 from .forms import LessonForm, CourseForm
 
 # Create your views here.
@@ -16,6 +25,7 @@ def index(request):
     return render(request, 'index.html', context = {
                                             'tile':'Главная',
                                             'courses': Course.objects.all(),
+                                            'teachers': Teacher.objects.all(),
                                         })
 
 
@@ -37,6 +47,19 @@ def check_teacher(user):
     except:
         pass
     return False
+
+
+def add_comment_to_course(request):
+    print(request)
+    print(request.POST)
+    data = request.POST
+    print(data.get('body'))
+    comment = CourseComment.objects.create(
+        author = request.user,
+        body = data.get('body'),
+        course = Course.objects.get(pk=data.get('course'))
+    )
+    return JsonResponse(serializers.serialize('json', [comment]), safe=False)
 
 
 @user_passes_test(check_student)

@@ -40,5 +40,54 @@
             </div>
         {% endfor %}
     {% endif %}
+    <h3>Комментарии:</h3>
+    {% for comment in course.get_comments %}
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-8">
+                    <div class="card card-white post">
+                        <div class="post-heading">
+                            <div class="float-left meta">
+                                <div class="title h5">
+                                    <a href="#"><b>{{comment.author}}</b></a>
+                                    оставил комментарий.
+                                </div>
+                                <h6 class="text-muted time">{{comment.created_on}}</h6>
+                            </div>
+                        </div> 
+                        <div class="post-description"> 
+                            <p>{{comment.body}}</p>
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+    <div class="container my-3 d-flex flex-column ">
+        <textarea id="new_comment" class="w-50" style="height:100px;" placeholder="{% if request.user.is_authenticated %}Оставьте комментарий {% else %} Только зарегестрированные пользователи могу оставлять комментарии{% endif %}"></textarea>
+        {% if request.user.is_authenticated %}
+        <button id="submit_comment" type="button" class="btn btn-success w-50 mt-3">Отправить</button>
+        {% endif %}
+    </div>
+    <script type="text/javascript">
+    $("#submit_comment").click(function(){  
+        $.ajax({
+        type: "POST",
+        url : "{% url 'add-comment-course'%}",
+         data : {
+            course: {{course.pk}},
+            body: $('textarea#new_comment').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+         },
+         success: function(data, status, xhr){
+            location.reload();
+        }
+        });
+        return false;
+    });
+</script>
+    
 
 {% endblock%}
