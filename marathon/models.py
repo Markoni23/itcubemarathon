@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 #from tinymce.models import HTMLField
-
+from testing.models import TestResult
 
 # Create your models here.
 class Teacher(models.Model):
@@ -52,7 +52,7 @@ class Student(models.Model):
     info = models.TextField(max_length=255)
     courses = models.ManyToManyField(Course)
     secret_quest = models.BooleanField(default=False)
-
+    age_category = models.ForeignKey("testing.AgeCategory", verbose_name="Возрастная категория", on_delete=models.CASCADE, null=True)
 
     def get_grades_for_course(self, course_pk):
         grades = {}
@@ -60,11 +60,36 @@ class Student(models.Model):
             grades[lesson.id] = LessonMarks.objects.get_or_create(student=self, lesson=lesson)[0].value
         return grades
 
+    def has_test(self, test):
+        try:
+            TestResult.objects.get(student=self, test=test)
+            return True
+        except TestResult.DoesNotExist:
+            return False
+
+    def get_test(self, test):
+        if self.has_test(test):
+            return TestResult.objects.get(student=self, test=test)
+        else:
+            return None
+
+    def test_results(self, test):
+        tr = self.get_test(test)
+        if not tr:
+            return None
+        s = 0
+        for resultanswer in tr.resultanswer_set.all():
+            if resultanswer.selected_ans.right_ans:
+                s += 1
+        return s
+
     def __str__(self):
         try:
             return f'Ученик: {self.user.last_name} {self.user.first_name}'
         except:
             return f'Ученик: {self.pk}'
+
+
 class LessonMarks(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)

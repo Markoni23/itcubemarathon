@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
 
 INSTALLED_APPS = [
     'users',
+    'marathon',
+    'testing',
     'six',
     'django_summernote',
     'django.contrib.admin',
@@ -44,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
     'crispy_forms',
-    'marathon',
     'storages',
 ]
 

@@ -18,6 +18,7 @@ from .models import (
     LessonMarks
 )
 from .forms import LessonForm, CourseForm
+from testing.models import *
 
 # Create your views here.
 
@@ -77,6 +78,15 @@ def course_statistic(request, course_pk):
     course = Course.objects.get(pk=course_pk)
     return render(request, 'marathon/course_statistic.html', context={'course': course})
 
+def get_test_results(request, pk):
+    test = Test.objects.get(pk=pk)
+    tr, _ = TestResult.objects.update_or_create(test=test, student=request.user.student)
+    for question in test.question_set.all():
+        ans = int(request.POST.get(str(question.pk), [0])[0])
+        if ans != 0:
+            ResultAnswer.objects.update_or_create(testresult=tr, 
+                                              selected_ans=Answer.objects.get(pk=ans))
+    return redirect('lesson', pk=test.lesson.pk)
 
 
 
@@ -118,6 +128,28 @@ class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class LessonView(DetailView):
     model = Lesson
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            student = self.request.user.student
+            if student.age_category:
+                lesson = self.get_object()
+                test = lesson.test_set.get(lesson=lesson,
+                                                      category=student.age_category)
+                
+            else:
+                test = lesson.test_set.first()
+            context['test'] = test
+            context['already_done_test'] = student.has_test(test)
+            context['test_result'] = student.test_results(test)
+        except:
+            pass
+        print(context)
+        return context
+    
+
+
 
 class LessonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Lesson

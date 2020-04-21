@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
-from .views import index, teachers, register_to_course, course_statistic, add_comment_to_course
+from .views import (index, teachers, register_to_course, course_statistic, add_comment_to_course,
+                    get_test_results)
 from .views import (
     CourseView,
     CourseCreateView,
@@ -22,5 +23,6 @@ urlpatterns = [
     path('course/new/', CourseCreateView.as_view(), name='course-new'),
     path('lesson/<int:pk>', LessonView.as_view(), name='lesson'),
     path('lesson/<int:pk>/update', LessonUpdateView.as_view(), name='lesson-update'),
-    path('course/<int:pk>/new_lesson', LessonCreateView.as_view(), name='lesson-new')
+    path('course/<int:pk>/new_lesson', LessonCreateView.as_view(), name='lesson-new'),
+    path('testresults/<int:pk>', get_test_results, name="test-results"),
 ]
