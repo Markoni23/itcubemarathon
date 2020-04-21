@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings 
 from marathon.models import Teacher, Student
+from testing.models import AgeCategory
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import password_validation
@@ -18,6 +19,8 @@ class UserRegistrationForm(UserCreationForm):
     agree = forms.BooleanField(label='Согласие на обработку <a href="https://google.com">персональных данных</a>')
     first_name = forms.CharField(max_length=25, label = 'Имя')
     last_name = forms.CharField(max_length=100, label = 'Фамилия')
+    age_category = forms.ModelChoiceField(queryset= AgeCategory.objects.all(), required=True, label="Возрастная категория")
+
     password1 = forms.CharField(
         label="Пароль",
         strip=False,
@@ -31,7 +34,7 @@ class UserRegistrationForm(UserCreationForm):
     )
     class Meta:
         model = User
-        fields = ['username', 'email','first_name', 'last_name', 'password1', 'password2', 'agree']
+        fields = ['username', 'email','first_name', 'last_name', 'age_category', 'password1', 'password2', 'agree']
         labels = {
                 "username": "Имя пользователя",
             }
