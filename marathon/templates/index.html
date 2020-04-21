@@ -20,7 +20,7 @@
     <div class="jumbotron text-center" style="background-color:white;padding: 8rem 18rem;position: relative;">
             <h1 class="display-4" style="font-weight: bold;">О марафоне</h1>
             <img src="{% static 'images/Resurs_2.png' %}" style="position: absolute;width: 20%;top: 9vh;left: -3%;" class="image" alt="Описание изображения...">
-            <p class="lead my-2 mx-5" style="text-weight:bold">Старт марафона 20 апреля. 
+            <p class="lead my-2 mx-5" style="text-weight:bold">Старт марафона 27 апреля. 
                 Марафон проходит в течение нескольких дней: новый день - новое задание.
                  Количество направлений для выбора не ограничено. </p>
             <img src="{% static 'images/Resurs_1.png' %}" style="width: 10%;" class="image" alt="Описание изображения...">
@@ -35,7 +35,7 @@
 
 {% endblock index%}
 {% block content %}
-
+{% if courses %}
  <h1 class="display-4 text-center mb-5" style="font-weight: bold;">Наши направления</h1>
 
           <div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
@@ -52,7 +52,27 @@
             </div>
           </div>
           {% endfor %}
+
           </div>
+          {% endif %}
+          {% if request.user.student.secret_quest %}
+          <h1 class="display-4 text-center mb-5" style="font-weight: bold;">Секретный квест</h1>
+          <div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
+          {% for course in secret_courses %}
+          <div class="col my-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-center" style="font-family: 'Rubik', sans-serif;">{{course.title}}</h3>
+                <p class="card-text">{{course.short_info}}</p>
+              </div>
+              <!-- <div class="card-footer text-center"> -->
+                <a class="btn rounded-pill btn-primary  btn-lg my_btn w-50 mb-3 mx-auto"  href="{% url 'course' course.pk%}" role="button">Подробнее</a>
+              <!-- </div>  -->
+            </div>
+          </div>
+          {% endfor %}
+          </div
+          {% endif %}
 
 <h1 class="display-4 text-center mb-5" style="font-weight: bold;">Педагоги</h1>
 

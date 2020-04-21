@@ -20,6 +20,8 @@ class Course(models.Model):
     info = models.TextField()
     you_tube_url = models.CharField(max_length=50, default='', blank=True, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, blank=True, null=True)
+    secret_course = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Направление: {self.title}'
@@ -37,7 +39,8 @@ class Lesson(models.Model):
     info = models.TextField()
     video = models.CharField(max_length=50, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-
+    active = models.BooleanField(default=False)
+    
     def get_absolute_url(self):
         return reverse('lesson', kwargs={'pk':self.pk})
 
@@ -48,6 +51,8 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     info = models.TextField(max_length=255)
     courses = models.ManyToManyField(Course)
+    secret_quest = models.BooleanField(default=False)
+
 
     def get_grades_for_course(self, course_pk):
         grades = {}

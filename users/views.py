@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, CreateTeacher
+from .forms import UserRegistrationForm, CreateTeacher, CreateSecret
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -79,4 +79,19 @@ def became_teacher(request):
             return redirect('profile')
     else:
         form = CreateTeacher()
+    return render(request, 'users/became_teacher.html', context={'form': form})
+
+@login_required
+def became_secret(request):
+    if request.method == 'POST':
+        form = CreateSecret(request.POST)
+        if form.is_valid():
+            new = form.save(request)
+            if new:
+                messages.success(request,f"Теперь вы можете участвовать в секретном квесте!")
+            else:
+                messages.success(request,f"Что-то пошло не так, если видите это, напишите нам")
+            return redirect('profile')
+    else:
+        form = CreateSecret()
     return render(request, 'users/became_teacher.html', context={'form': form})

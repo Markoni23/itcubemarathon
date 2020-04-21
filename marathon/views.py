@@ -24,7 +24,8 @@ from .forms import LessonForm, CourseForm
 def index(request):
     return render(request, 'index.html', context = {
                                             'tile':'Главная',
-                                            'courses': Course.objects.all(),
+                                            'courses': Course.objects.filter(secret_course=False, active=True),
+                                            'secret_courses': Course.objects.filter(secret_course=True, active=True),
                                             'teachers': Teacher.objects.all(),
                                         })
 
