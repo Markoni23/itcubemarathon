@@ -41,6 +41,9 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     active = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['pk']
+
     def get_absolute_url(self):
         return reverse('lesson', kwargs={'pk':self.pk})
 
