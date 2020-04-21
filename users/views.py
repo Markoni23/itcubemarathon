@@ -25,6 +25,7 @@ def register(request):
             #user.save()
             print(form)
             s = Student.objects.create(user=user)
+            s.secret_quest = True
             s.courses.add(Course.objects.get(pk=settings.SECRET_COURSE))
             s.save()
             current_site = get_current_site(request)
