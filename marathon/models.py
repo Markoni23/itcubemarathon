@@ -40,7 +40,7 @@ class Lesson(models.Model):
     video = models.CharField(max_length=50, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     active = models.BooleanField(default=False)
-    
+
     def get_absolute_url(self):
         return reverse('lesson', kwargs={'pk':self.pk})
 
@@ -61,8 +61,10 @@ class Student(models.Model):
         return grades
 
     def __str__(self):
-        return f'Ученик: {self.user.last_name} {self.user.first_name}'
-
+        try:
+            return f'Ученик: {self.user.last_name} {self.user.first_name}'
+        except:
+            return f'Ученик: {self.pk}'
 class LessonMarks(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
