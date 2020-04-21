@@ -28,7 +28,8 @@ class Test(models.Model):
 class Question(models.Model):
     text = models.TextField()
     test = models.ForeignKey(Test, verbose_name="test", on_delete=models.CASCADE)
-
+    multiple = models.BooleanField(default=False)
+    
     class Meta:
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"

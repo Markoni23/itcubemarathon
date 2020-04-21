@@ -22,7 +22,7 @@
     <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
 
 
-    {% if user.student and test %}
+    {% if user.student and test%}
         {% if not already_done_test %}
         <form action="{% url 'test-results' test.pk %}" target="result" method="post">
             <h1> {{test.name}}</h1>
@@ -30,7 +30,11 @@
             {% for question in test.question_set.all %}
                 <h2>{{question.text}}</h2>
                 {% for answer in question.answer_set.all %}
-                    <input type="radio" id="question{{question.pk}}-{{answer.pk}}" name="{{question.pk}}" value="{{answer.pk}}">
+                    {% if question.multiple %}
+                        <input type="checkbox" id="question{{question.pk}}-{{answer.pk}}" name="{{question.pk}}" value="{{answer.pk}}">
+                    {% else %}
+                        <input type="radio" id="question{{question.pk}}-{{answer.pk}}" name="{{question.pk}}" value="{{answer.pk}}">
+                    {% endif %}
                     <label for="question{{question.pk}}-{{answer.pk}}">{{answer.text}}</label><br>
                 {% endfor %}
 

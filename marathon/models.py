@@ -81,7 +81,9 @@ class Student(models.Model):
         for resultanswer in tr.resultanswer_set.all():
             if resultanswer.selected_ans.right_ans:
                 s += 1
-        return s
+            else:
+                s -= 1
+        return max(s, 0)
 
     def __str__(self):
         try:

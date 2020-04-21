@@ -82,10 +82,17 @@ def get_test_results(request, pk):
     test = Test.objects.get(pk=pk)
     tr, _ = TestResult.objects.update_or_create(test=test, student=request.user.student)
     for question in test.question_set.all():
-        ans = int(request.POST.get(str(question.pk), [0])[0])
-        if ans != 0:
-            ResultAnswer.objects.update_or_create(testresult=tr, 
-                                              selected_ans=Answer.objects.get(pk=ans))
+        if question.multiple:
+            ans_list = request.POST.getlist(str(question.pk))
+            if ans_list[0] != [0]:
+                for ans in ans_list:
+                    ResultAnswer.objects.update_or_create(testresult=tr, 
+                                                selected_ans=Answer.objects.get(pk=int(ans)))
+        else:
+            ans = int(request.POST.get(str(question.pk), [0])[0])
+            if ans != 0:
+                ResultAnswer.objects.update_or_create(testresult=tr, 
+                                                selected_ans=Answer.objects.get(pk=ans))
     return redirect('lesson', pk=test.lesson.pk)
 
 
