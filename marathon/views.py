@@ -89,7 +89,7 @@ def get_test_results(request, pk):
                     ResultAnswer.objects.update_or_create(testresult=tr, 
                                                 selected_ans=Answer.objects.get(pk=int(ans)))
         else:
-            ans = int(request.POST.get(str(question.pk), [0])[0])
+            ans = int(request.POST.getlist(str(question.pk), [0])[0])
             if ans != 0:
                 ResultAnswer.objects.update_or_create(testresult=tr, 
                                                 selected_ans=Answer.objects.get(pk=ans))
