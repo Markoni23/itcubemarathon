@@ -23,9 +23,11 @@ def register(request):
             #user = form.save(commit=False)
             #user.is_active = False   
             #user.save()
-            print(form)
+            age = form.cleaned_data['age_category']
+            print(age)
             s = Student.objects.create(user=user)
             s.secret_quest = True
+            s.age_category = age
             s.courses.add(Course.objects.get(pk=settings.SECRET_COURSE))
             s.save()
             current_site = get_current_site(request)
