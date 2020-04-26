@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import datetime
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +61,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
+
+# Key in `CACHES` dict
+CACHE_MIDDLEWARE_ALIAS = 'default'
+
+# Additional prefix for cache keys
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+
+# Cache key TTL in seconds
+CACHE_MIDDLEWARE_SECONDS = 60*60*24
 
 ROOT_URLCONF = 'itcubesite.urls'
 
@@ -177,8 +189,10 @@ AWS_QUERYSTRING_AUTH = True
 AWS_QUERYSTRING_EXPIRE = '604799'
 SECRET_KEY_FOR_TEACHER = os.environ.get('SECRET_KEY_FOR_TEACHER')
 SECRET_KEY_FOR_STUDENT = os.environ.get('SECRET_KEY_FOR_STUDENT')
+MARATHON_START = datetime.datetime(2020, 4, 27, 0, 0, 0)
 SECRET_COURSE = 14
 SUMMERNOTE_THEME = 'bs4'
+
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

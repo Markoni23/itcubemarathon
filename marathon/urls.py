@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
+from django.views.generic import RedirectView
+
 from .views import (index, teachers, register_to_course, course_statistic, add_comment_to_course,
                     get_test_results)
 from .views import (
@@ -13,7 +15,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', RedirectView.as_view(url='home'), name='home'),
+    path('home', index),
     path('teachers', teachers, name='teachers'),
     path('course/<int:pk>', CourseView.as_view(), name='course'),
     path('addcoursecomment/', add_comment_to_course, name='add-comment-course'),

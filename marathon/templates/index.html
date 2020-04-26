@@ -4,12 +4,6 @@
 
     <div class="img__container mt-0 mb-0">
         <img src="{% static 'images/image.png' %}" class="image" alt="Описание изображения...">
-       <!-- <div class="img__description">
-            <div class="img__header">Яркие грани IT-технологий</div>
-          <p class="lead"> Новые знания по различным направлениям
-                      <br> Навыки проектной деятельности и командной работы
-                      <br>Новые дисциплины</p>
-                        -->
           {% if not request.user.is_authenticated %}
           <div class="img__description">
             <a class="btn rounded-pill btn-primary btn-lg my_btn" style="padding: 1rem 5rem;" href="{% url 'register' %}" role="button">Регистрация</a>
@@ -36,7 +30,7 @@
 {% endblock index%}
 {% block content %}
 {% if courses %}
- <h1 class="display-4 text-center mb-5" style="font-weight: bold;">Наши направления</h1>
+ <h1 class="display-4 text-center mb-5" id="napr" style="font-weight: bold;">Наши направления</h1>
 
           <div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
           {% for course in courses %}
@@ -74,7 +68,7 @@
           </div>
           {% endif %}
 
-<h1 class="display-4 text-center mb-5" style="font-weight: bold;">Педагоги</h1>
+<h1 class="display-4 text-center mb-5" id="teachers" style="font-weight: bold;">Педагоги</h1>
 
 <div class="row row-cols-1 justify-content-md-center row-cols-md-3 mb-5">
   {% for teacher in teachers %}
@@ -92,7 +86,7 @@
 
 </div>
 
- <div class="jumbotron text-center" style="background-color:white;padding: 8rem 18rem;position: relative;">
+ <div class="jumbotron text-center" id="about" style="background-color:white;padding: 8rem 18rem;position: relative;">
 <h1 class="display-4 mb-5" style="font-weight: bold;">Об IT-Cube</h1>
 <p class="lead" style="text-weight:bold;">
 Центр цифрового образования детей «IT-cube» — инновационная современная площадка дополнительного 
@@ -105,14 +99,14 @@
 </div>
 
 <div class="jumbotron text-center" style="background-color:white;position: relative;">
-<h1 class="display-4 mb-5" style="font-weight: bold;">Контакты</h1>
+<h1 class="display-4 mb-5" id="contacts" style="font-weight: bold;">Контакты</h1>
 <div class="row justify-content-md-center">
   <div class="col-6 d-flex flex-column my-4"> 
- <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/phone.png"/>+7(991)42-00-59</div>
- <div class="my-2"> <img src="https://img.icons8.com/ios-filled/26/000000/important-mail.png"/>it_cube@mail.ru</div>
+ <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/phone.png"/><a href="tel:+7(991)42-00-59">+7(991)42-00-59</a></div>
+ <div class="my-2"> <img src="https://img.icons8.com/ios-filled/26/000000/important-mail.png"/><a href="mailto:it_cube.mail.ru">it_cube@mail.ru</a></div>
 </div>
   <div class="col-6 d-flex flex-column my-4"> 
-  <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/instagram.png"/>@vk.com/it_cube_krd</div>
+  <div class="my-2"><img src="https://img.icons8.com/ios-filled/26/000000/instagram.png"/><a href="https://vk.com/it_cube_krd">@vk.com/it_cube_krd</a></div>
    <div class="my-2"><img src="https://img.icons8.com/metro/26/000000/vk-com--v1.png"/> vk.com/it_cube_krd</div>
    </div>
 
@@ -122,5 +116,20 @@
 <img src="{% static 'images/Resurs_7.png' %}" style="position: absolute;width: 26%;top: 12vh;right: -12%;z-index: 1;" class="image" alt="Описание изображения...">
 </div>
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#menu").on("click","a", function (event) {
+        var pathname = window.location.pathname;
+        if (pathname == "/home"){
+          event.preventDefault();
+          var id  = $(this).attr('href').substr(1),
+            top = $(id).offset().top;
+        $('body,html').animate({scrollTop: top}, 1500);
+        }
+        
+    });
+});
+</script>
 
 {% endblock content %}

@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('activate/<str:uidb64>/<str:token>/',
         users_views.activate, name='activate'),
+     path('ss/bb/send_mails/', users_views.send_mails),
     path('', include('marathon.urls')),
 ]
 

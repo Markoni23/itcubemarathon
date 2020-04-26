@@ -21,7 +21,8 @@
     {% endif %}
     <a class="nav-link" href="{% url 'course' lesson.course.pk %}">К курсу</a>
 
-
+    {% if lesson.active %}
+    <h1> Урок активен </h1>
     {% if user.student and test%}
         {% if not already_done_test %}
         <form action="{% url 'test-results' test.pk %}" target="result" method="post">
@@ -45,5 +46,6 @@
         <h1> Вы уже сдавали тест, ваш результат: {{test_result}}</h1>
         {% endif %}
 
+    {% endif %}
     {% endif %}
 {% endblock%}

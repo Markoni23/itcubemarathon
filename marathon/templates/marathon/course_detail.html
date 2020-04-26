@@ -27,7 +27,7 @@
     {% endif %}
 
     {% if course in user.student.courses.all or not user.student%}
-        {% for lesson in course.lesson_set.all %}
+        {% for lesson in course.get_published_lessons %}
             <div class="card">
                 <div class="card-header" id="headingOne">
                 <h2 class="mb-0">

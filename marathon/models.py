@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 #from tinymce.models import HTMLField
 from testing.models import TestResult
+from itcubesite.settings import MARATHON_START
+import datetime
 
 # Create your models here.
 class Teacher(models.Model):
@@ -26,6 +28,9 @@ class Course(models.Model):
     def __str__(self):
         return f'Направление: {self.title}'
 
+    def get_published_lessons(self):
+        return [lesson for lesson in self.lesson_set.order_by('order') if lesson.publish]
+
     def get_absolute_url(self):
         return reverse('course', kwargs={'pk':self.pk})
 
@@ -39,7 +44,15 @@ class Lesson(models.Model):
     info = models.TextField()
     video = models.CharField(max_length=50, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    active = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
+
+    @property
+    def publish(self):
+        return MARATHON_START + datetime.timedelta(days=self.order - 1) < datetime.datetime.now()
+
+    @property
+    def active(self):
+        return MARATHON_START < datetime.datetime.now() < MARATHON_START + datetime.timedelta(days=self.order)
 
     class Meta:
         ordering = ['pk']

@@ -13,32 +13,44 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .token import account_activation_token
 from django.core.mail import EmailMessage
 from django.conf import settings 
+
+
 # Create your views here.
+@login_required
+def send_mails(request):
+    mail_subject = 'Добро пожаловать в IT-марафон!'
+    current_site = get_current_site(request)
+    message = render_to_string('acc_active_email.html', {
+                'domain': current_site.domain,
+            })
+    
+    email = EmailMessage(
+                        mail_subject, message, to=to_emails
+            )
+    email.send()
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            #user = form.save(commit=False)
-            #user.is_active = False   
-            #user.save()
+            #user = form.save()
+            user = form.save(commit=False)
+            user.is_active = False   
+            user.save()
             age = form.cleaned_data['age_category']
-            print(age)
             s = Student.objects.create(user=user)
-            s.secret_quest = True
+            #s.secret_quest = True
             s.age_category = age
-            s.courses.add(Course.objects.get(pk=settings.SECRET_COURSE))
+            #s.courses.add(Course.objects.get(pk=settings.SECRET_COURSE))
             s.save()
             current_site = get_current_site(request)
-            mail_subject = 'Вы стали участником секретного квеста!)'
+            mail_subject = 'Добро пожаловать в IT-марафон!'
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
-            print(message)
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
                         mail_subject, message, to=[to_email]
@@ -46,7 +58,7 @@ def register(request):
             email.send()
             username = form.cleaned_data.get('username')
             login(request, user)
-            #messages.success(request,f"Профиль '{username}' почти создан , теперь осталось подтвердить регистрацию")
+            messages.success(request,f"Профиль '{username}' почти создан , теперь осталось подтвердить регистрацию")
             return redirect('home')
     else:
         form = UserRegistrationForm()
